@@ -65,6 +65,10 @@ class Queue:
             raise IndexError("Error!! The queue is empty.")
         return self._queue[-1]
     
+    def print_queue(self):
+        """Prints the elements of the stack  starting with the First to be entered."""
+        print(self)
+    
     def clear(self):
         """Destroys all elements of the queue and returns an empty queue."""
         return self._queue.clear()
@@ -78,5 +82,5 @@ queue.dequeue()
 print("The first element in the queue is ", queue.front())
 print("The last element in the queue is ", queue.rear())
 print("Clearing all the elements in the queue ", queue.clear())
-print(queue)
+queue.print_queue()
 print(repr(queue))
