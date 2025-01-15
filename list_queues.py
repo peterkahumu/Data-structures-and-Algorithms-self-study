@@ -71,8 +71,8 @@ class Queue:
     
     def clear(self):
         """Destroys all elements of the queue and returns an empty queue."""
-        return self._queue.clear()
-
+        self._queue.clear()
+        return []
 
 queue = Queue(maxsize=100)
 queue.enqueue(10)
