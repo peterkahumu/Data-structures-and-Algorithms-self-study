@@ -1,35 +1,59 @@
 class TreeNode:
     def __init__(self, data):
         self.data = data
-        self.left = None
-        self.right = None
-
-    def create_node(self, data):
-        return TreeNode(data)
-
-    def create_left(self, data):
-        self.left = self.create_node(data)
-        return self.left
+        self.left_child = None
+        self.right_child = None
     
-    def create_right(self, data):
-        self.right = self.create_node(data)
-        return self.right
+    def __repr__(self):
+        """Return detailed information to developers for debugging."""
+        left = f"Left({self.left_child.data})" if self.left_child else "Left(None)"
+        right = f"Right({self.right_child.data})" if self.right_child else "Right(None)"
+        return f"TreeNode(data={self.data}, {left}, {right})"
 
-    def display_tree(self, level = 0):
-        print(" " * (level + 1) + str(self.data))
-        if self.right:
-            self.right.display_tree(level + 4)
-        if self.left:
-            self.left.display_tree(level + 4)
 
-tree = TreeNode("Root")
-child1 = tree.create_left("Left child")
-child2 = tree.create_right("Right data")
+    def create_left_child(self, data):
+        """createt the left child of the node."""
+        self.left_child = TreeNode(data)
+        return self.left_child
+    
+    def create_right_child(self, data):
+        """Creates a the right child of the node"""
+        self.right_child = TreeNode(data)
+        return self.right_child
+    
+    def display_tree(self, level=0, prefix="Root: "):
+        """Outputs a representation of the tree in hierarchical formate"""
+        print(" " * level * 4 + prefix + str(self.data))
+        if self.left_child:
+            self.left_child.display_tree(level + 1, "L--> ")
+        if self.right_child:
+            self.right_child.display_tree(level + 1, "R--> ")   
+    
+    # Tree traversal
+    # inorder tree traversal
+    def inorder_traversal(self):
+        """Visits the Left ----> Root ----> Right trees in the given order.
+        
+        Step1: Recursively traverse the left subtree.
+        Step2: Visit root node.
+        Step3: Recursively travese right subtree."""
+        if self.left_child:
+            self.left_child.inorder_traversal()
+        print(self.data, end="->")
+        if self.right_child:
+            self.right_child.inorder_traversal()
+            
 
-child1.create_right("Hello")
-child1. create_left("There")
+tree  = TreeNode("Root")
+# level 1
+child1 = tree.create_left_child(20)
+child2 = tree.create_right_child(30)
 
-child2.create_right("Nice to ")
-child2.create_left("meet you.")
+# level 2
+child1_1 = child1.create_left_child(50)
+child1_2 = child1.create_right_child(60)
 
-tree.display_tree()
+child2_1 = child2.create_left_child(100)
+child2_2 = child2.create_right_child(200)
+
+tree.inorder_traversal()
